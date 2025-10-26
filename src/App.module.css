@@ -1,0 +1,65 @@
+li,p,h1,h2 {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: transparent;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.formSubmit {
+  margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-items: center;
+  width: 450px;
+  border: 2px solid black;
+  border-radius: 25px;
+}
+
+.submitList {
+justify-items: center;
+}
+
+.submitInput {
+  width: 350px;
+height: 35px;
+border-radius: 25px;
+padding-left: 15px;
+margin-bottom: 15px;
+}
+
+.submitText {
+  margin-bottom: 25px;
+  margin-top: 25px;
+  
+}
+
+.submitButton {
+  margin-bottom: 25px;
+  margin-left: 50px;
+  width: 350px;
+  height: 45px;
+
+
+  border-radius: 25px;
+  border: none;
+  font-size: 15px;
+  background-color: #0B3C49;
+  color: #fff
+}
+
+.submitButton:hover {
+  background-color: #95B8D1;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.submitInput:hover {
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
