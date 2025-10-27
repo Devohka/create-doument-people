@@ -41,36 +41,19 @@ export const reduser = createReducer(state, (builder) => {
       // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
       return {
         inperson: {
-          job: action.payload.job,
-          name: action.payload.name,
+          job: action.payload.inperson.job,
+          name: action.payload.inperson.name,
         },
-        ...state,
-      };
-    })
-    .addCase(addCustomer, (state, action) => {
-      // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
-      return {
         customer: {
-          job: action.payload.job,
-          name: action.payload.name,
+          name: action.payload.customer.name,
+          job: action.payload.customer.job,
         },
-        ...state,
+        basis: action.payload.basis,
+        product: state.product.product,
+        term: action.payload.term,
+        place: action.payload.place,
       };
     })
-    .addCase(addTerm, (state, action) => {
-      // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
-      return {
-        term: action.payload,
-        ...state,
-      };
-    })
-    .addCase(addCustomer, (state, action) => {
-      // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
-      return {
-        place: action.payload,
-        ...state,
-      };
-    });
 
   // return state;
 });
