@@ -241,8 +241,8 @@ function Document() {
 
           <h2 className={css.sectionTitle}>3. ЦІНА ДОГОВОРУ</h2>
           <p className={css.paragraph}>
-            3.1.Сума договору становить: {totalProductSum} грн 00 коп, (
-            {numberToUAText(totalProductSum)}) без ПДВ.
+            3.1.Сума договору становить: 
+            {numberToUAText(totalProductSum)} без ПДВ.
           </p>
           <p className={css.paragraph}>
             3.2. Постачальник не вправі збільшувати узгоджену ціну в
@@ -614,8 +614,8 @@ function Document() {
           </div>
 
           <p className={css.paragraph}>
-            Загальна сума Договору складає: {totalProductSum} грн 00 коп, (
-            {numberToUAText(totalProductSum)}) без ПДВ.
+            Загальна сума Договору складає:
+            {numberToUAText(totalProductSum)} без ПДВ.
           </p>
 
           <div className={css.tableWrappers}>
