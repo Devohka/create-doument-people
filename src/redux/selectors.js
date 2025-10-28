@@ -13,6 +13,9 @@ export const placeEl = state => state.inPerson.place;
 
 export const codeEl = state => state.inPerson.code;
 
+export const showDEl = state => state.inPerson.showD;
+
+
 
 
 export const productEl = state => state.product.product;

@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { addInperson } from "./actions";
+import { addInperson, ShowingD } from "./actions";
 // localStorage.clear();
 
 // const state = {
@@ -16,6 +16,7 @@ import { addInperson } from "./actions";
 // localStorage.setItem("completed", JSON.stringify({ com: [...state.completedTask], numCom: state.completed }));
 
 const state = {
+  showD: false,
   inperson: {
     job: "",
     name: "fg fg ",
@@ -25,7 +26,7 @@ const state = {
     job: "",
   },
   basis: "",
-
+  product: [],
   term: "",
   place: "",
   code: "",
@@ -36,6 +37,7 @@ export const reduser = createReducer(state, (builder) => {
     .addCase(addInperson, (state, action) => {
       // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
       return {
+        showD: state.showD,
         inperson: {
           job: action.payload.inPerson.job,
           name: action.payload.inPerson.name,
@@ -49,6 +51,23 @@ export const reduser = createReducer(state, (builder) => {
         term: action.payload.term,
         place: action.payload.place,
         code: action.payload.code,
+      };
+    }).addCase(ShowingD, (state, action) => {
+      return {
+        showD: action.payload,
+        inperson: {
+          job: state.inperson.job,
+          name: state.inperson.name,
+        },
+        customer: {
+          name: state.customer.name,
+          job: state.customer.job,
+        },
+        basis: state.basis,
+        product: [...state.product],
+        term: state.term,
+        place: state.place,
+        code: state.code,
       };
     })
 

@@ -33,6 +33,14 @@ export const addProduct = createAction("AddProduct", (name, number, cost, id) =>
   };
 });
 
+export const ShowingD = createAction("Showingd", (stat) => {
+  return {
+    payload: stat,
+  };
+});
+
+
+
 export const Showing = createAction("Showing", (stat) => {
   return {
     payload: stat,

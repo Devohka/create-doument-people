@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
-
+import { useDispatch } from "react-redux";
 import htmlDocx from "html-docx-js/dist/html-docx";
 import { saveAs } from "file-saver";
 import css from "./Document.module.css";
+import { ShowingD } from "../redux/actions";
 import {
   inpersonEl,
   customerEl,
@@ -13,121 +14,74 @@ import {
   customerProviderEl,
   providerEl,
   productEl,
+  showDEl,
 } from "../redux/selectors";
 import { useSelector } from "react-redux";
 
 function Document() {
-  function numberToUAText(amount) {
-    const ones = [
-      "",
-      "одна",
-      "дві",
-      "три",
-      "чотири",
-      "п’ять",
-      "шість",
-      "сім",
-      "вісім",
-      "дев’ять",
-    ];
-    const teens = [
-      "десять",
-      "одинадцять",
-      "дванадцять",
-      "тринадцять",
-      "чотирнадцять",
-      "п’ятнадцять",
-      "шістнадцять",
-      "сімнадцять",
-      "вісімнадцять",
-      "дев’ятнадцять",
-    ];
-    const tens = [
-      "",
-      "",
-      "двадцять",
-      "тридцять",
-      "сорок",
-      "п’ятдесят",
-      "шістдесят",
-      "сімдесят",
-      "вісімдесят",
-      "дев’яносто",
-    ];
-    const hundreds = [
-      "",
-      "сто",
-      "двісті",
-      "триста",
-      "чотириста",
-      "п’ятсот",
-      "шістсот",
-      "сімсот",
-      "вісімсот",
-      "дев’ятсот",
-    ];
-    const thousandsForms = ["тисяча", "тисячі", "тисяч"];
+  const dispatch = useDispatch();
 
-    function getForm(number, forms) {
+  const numberToUAText = (amount) => {
+    const ones = ["", "один", "два", "три", "чотири", "п’ять", "шість", "сім", "вісім", "дев’ять"];
+    const teens = ["десять", "одинадцять", "дванадцять", "тринадцять", "чотирнадцять", "п’ятнадцять", "шістнадцять", "сімнадцять", "вісімнадцять", "дев’ятнадцять"];
+    const tens = ["", "", "двадцять", "тридцять", "сорок", "п’ятдесят", "шістдесят", "сімдесят", "вісімдесят", "дев’яносто"];
+    const hundreds = ["", "сто", "двісті", "триста", "чотириста", "п’ятсот", "шістсот", "сімсот", "вісімсот", "дев’ятсот"];
+    const thousandsForms = ["тисяча", "тисячі", "тисяч"];
+    const millionsForms = ["мільйон", "мільйони", "мільйонів"];
+  
+    const getForm = (number, forms) => {
       const n = Math.abs(number) % 100;
       const n1 = n % 10;
       if (n > 10 && n < 20) return forms[2];
       if (n1 > 1 && n1 < 5) return forms[1];
       if (n1 === 1) return forms[0];
       return forms[2];
-    }
-
-    function convertTriad(num, feminine = false) {
+    };
+  
+    const convertTriad = (num, feminine = false) => {
       let text = "";
       const h = Math.floor(num / 100);
       const t = Math.floor((num % 100) / 10);
       const o = num % 10;
       text += hundreds[h] ? hundreds[h] + " " : "";
-      if (t > 1) {
-        text += tens[t] + " ";
-        text += ones[o] ? ones[o] + " " : "";
-      } else if (t === 1) {
-        text += teens[o] + " ";
-      } else {
-        text += ones[o] ? ones[o] + " " : "";
-      }
-      if (feminine) {
-        text = text.replace("один ", "одна ").replace("два ", "дві ");
-      }
+      if (t > 1) text += tens[t] + " " + (ones[o] || "");
+      else if (t === 1) text += teens[o] + " ";
+      else text += ones[o] || "";
+      if (feminine) text = text.replace("один", "одна").replace("два", "дві");
       return text.trim();
-    }
-
+    };
+  
     const parts = amount.toFixed(2).split(".");
     const hryvnia = parseInt(parts[0], 10);
     const kopiyky = parts[1];
-
     let text = "";
-
-    if (hryvnia === 0) {
-      text = "нуль гривень";
-    } else {
-      const thousands = Math.floor(hryvnia / 1000);
+  
+    if (hryvnia === 0) text = "нуль гривень";
+    else {
+      const millions = Math.floor(hryvnia / 1_000_000);
+      const thousands = Math.floor((hryvnia % 1_000_000) / 1000);
       const remainder = hryvnia % 1000;
-
-      if (thousands > 0) {
-        text +=
-          convertTriad(thousands, true) +
-          " " +
-          getForm(thousands, thousandsForms) +
-          " ";
+  
+      if (millions > 0) {
+        text += `${convertTriad(millions)} ${getForm(millions, millionsForms)} `;
       }
-      text +=
-        convertTriad(remainder) +
-        " " +
-        getForm(remainder, ["гривня", "гривні", "гривень"]);
+  
+      if (thousands > 0) {
+        text += `${convertTriad(thousands, true)} ${getForm(thousands, thousandsForms)} `;
+      }
+  
+      text += `${convertTriad(remainder)} ${getForm(remainder, ["гривня", "гривні", "гривень"])}`;
     }
+  
+    return `${amount.toFixed(2)} грн. ${kopiyky} коп. (${text.charAt(0).toUpperCase() + text.slice(1)} ${kopiyky} копійок)`;
+  };
 
-    return (
-      `${amount.toFixed(2)} грн. ` +
-      `${kopiyky} коп. ` +
-      `(${text.charAt(0).toUpperCase() + text.slice(1)} ${kopiyky} копійок)`
-    );
-  }
+  const showD = useSelector(showDEl);
+  console.log(showD);
+
+  const showDF = () => {
+    dispatch(ShowingD(!showD));
+  };
 
   function updateName(name) {
     const nameAreey = name.split(" ");
@@ -155,180 +109,46 @@ function Document() {
 
   // --- Зберегти як Word ---
 
-     const exportToWord = (element, fileName = "document.docx", cssText = "./Document.module.css") => {
-      if (!element) return;
-
-      const html = `
-        <html xmlns:o='urn:schemas-microsoft-com:office:office'
-              xmlns:w='urn:schemas-microsoft-com:office:word'
-              xmlns='http://www.w3.org/TR/REC-html40'>
-          <head>
-            <meta charset='utf-8'>
-            <title>${fileName}</title>
-            <style>
-              ${cssText}
-            </style>
-          </head>
-          <body>
-            ${element.innerHTML}
-          </body>
-        </html>
-      `;
-
-      const blob = htmlDocx.asBlob(html);
-      saveAs(blob, fileName);
-    };
-
-  // const handleSaveAsWord = () => {
-  //   const stylesText = Object.entries(css)
-  //     .map(([key, value]) => {
-  //       try {
-  //         // Безпечний селектор (екранує спецсимволи)
-  //         const selector = "." + CSS.escape(value);
-  //         const el = document.querySelector(selector);
-
-  //         if (el instanceof Element) {
-  //           const style = window.getComputedStyle(el);
-  //           const cssString =
-  //             style.cssText ||
-  //             Array.from(style)
-  //               .map(
-  //                 (prop) => `${prop}: ${style.getPropertyValue(prop)};`
-  //               )
-  //               .join(" ");
-  //           return `${selector} { ${cssString} }`;
-  //         }
-  //         return "";
-  //       } catch (err) {
-  //         console.warn("Помилка в селекторі:", value, err);
-  //         return "";
-  //       }
-  //     })
-  //     .join("\n");
-
-  //   exportToWord(contractRef.current, "Договір_2025.docx", stylesText);
-  // };
-
-  // --- Друк ---
+  const exportToWord = (element, fileName, cssText) => {
+    if (!element) return;
+    const html = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office'
+            xmlns:w='urn:schemas-microsoft-com:office:word'
+            xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+          <meta charset='utf-8'>
+          <title>${fileName}</title>
+          <style>${cssText}</style>
+        </head>
+        <body>${element.innerHTML}</body>
+      </html>
+    `;
+    const blob = htmlDocx.asBlob(html);
+    saveAs(blob, fileName);
+  };
 
   const handleSaveAsWord = () => {
-    const cssText = `
-      .container { display: flex; flex-direction: column; align-items: center; }
-      .buttons { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
-      .btn { background: #0B3C49; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s ease; }
-      .btn:hover { background: #95B8D1; }
-      .page { width: 210mm; min-height: 297mm; margin: auto; padding: 25mm; font-family: "Times New Roman", serif; font-size: 12pt; color: #000; background: white; box-sizing: border-box; }
-      .title { text-align: center; font-weight: bold; text-transform: uppercase; margin-bottom: 15px; }
-      .paragraph { text-align: justify; line-height: 1.4; margin-bottom: 8px; }
-      .centrText {
-    
-        display: flex;
-     justify-content: center;
-       } .infoText {
-        display: flex;
-      }  .subtitle {
-        border-bottom: 2px solid black;
-        font-weight: bold;
-        /* text-align: right; */
-        font-style: italic;
-        margin-bottom: 10px;
-      } .subtitle {
-        text-align: right;
-    }
-    .subtitlee {
-        border-bottom: 2px solid black;
-        font-weight: bold;
-        /* text-align: right; */
-        font-style: italic;
-        margin-bottom: 10px;
-        text-align: center;
-      }
-      .subtitleCenter {
-        margin-left: auto;
-        width: 150px;
-        /* font-weight: bold; */
-        /* margin: 15px 0; */
-      }
-    
-      .text {
-        text-align: center;
-        font-size: 11pt;
-        margin-bottom: 10px;
-      }
-      
-      .sectionTitle {
-        text-align: center;
-        font-weight: bold;
-        margin-top: 15px;
-        margin-bottom: 5px;
-        text-transform: uppercase;
-      }
-      
-      .paragraph {
-        text-align: justify;
-        line-height: 1.4;
-        margin-bottom: 8px;
-      }
-    
-    
-      
-      .tableWrapper {
-        margin-top: 15px;
-        margin-bottom: 15px;
-      }
-      
-      .tableWrappers {
-        margin-top: 75px;
-        margin-bottom: 15px;
-      }
-    
-      .table {
-        width: 100%;
-        /* display: flex; */
-        border-collapse: collapse;
-        font-size: 11pt;
-      }
-      
-      .table th,
-      .table td {
-        width: 50%;
-        border: 1px solid black;
-        padding: 6px;
-        vertical-align: top;
-        }
-      .signatures {
-        /* margin-top: 30px; */
-        /* text-align: center; */
-        line-height: 2;
-        font-weight: bold;
-      }
-    
-      .signature {
-        margin-top: 25px;
-        display: flex;
-      }
-    
-      .signatureText {
-        border-top: 2px solid black;
-      }
-    
-      .signatureName {
-       margin-left: auto;
-      }
-    
-      .footerInfo {
-        width: 250px;
-        margin-bottom: 25px;
-        margin-left: auto;
-      }
-    
+    // ✅ Вбудовуємо стилі з CSS-модуля в документ Word
+    const stylesText = `
+      .container { display:flex; flex-direction:column; align-items:center; }
+      .page { width:210mm; min-height:297mm; margin:auto; padding:25mm; font-family:"Times New Roman",serif; font-size:12pt; color:#000; background:white; box-sizing:border-box; }
+      .title { text-align:center; font-weight:bold; text-transform:uppercase; margin-bottom:15px; }
+      .paragraph { text-align:justify; line-height:1.4; margin-bottom:8px; }
+      .sectionTitle { text-align:center; font-weight:bold; margin-top:15px; text-transform:uppercase; }
+      .table { width:100%; border-collapse:collapse; }
+      .table th, .table td { border:1px solid black; padding:6px; }
     `;
-    exportToWord(contractRef.current, "Договір_2025.docx", cssText);
+    exportToWord(contractRef.current, "Договір_2025.docx", stylesText);
   };
 
   const handlePrint = () => {
     window.print();
   };
+
+  const totalProductSum = product.reduce((acc, pro) => {
+    console.log(acc, pro.cost, pro.numder);
+    return acc + pro.cost * pro.number;
+  }, 0);
 
   return (
     <div className={css.container}>
@@ -339,6 +159,9 @@ function Document() {
         </button>
         <button className={css.btn} onClick={handlePrint}>
           Друк
+        </button>
+        <button type="button" className={css.btn} onClick={showDF}>
+          Назад
         </button>
       </div>
 
@@ -418,18 +241,8 @@ function Document() {
 
           <h2 className={css.sectionTitle}>3. ЦІНА ДОГОВОРУ</h2>
           <p className={css.paragraph}>
-            3.1.Сума договору становить:{" "}
-            {product.reduce((accumulator, pro) => {
-              return (
-                <>
-                  <span>
-                    {accumulator + pro.cost * pro.number} грн 00 коп, (
-                    {numberToUAText(accumulator.cost + pro.cost * pro.number)})
-                  </span>
-                </>
-              );
-            }, 0)}{" "}
-            без ПДВ.
+            3.1.Сума договору становить: {totalProductSum} грн 00 коп, (
+            {numberToUAText(totalProductSum)}) без ПДВ.
           </p>
           <p className={css.paragraph}>
             3.2. Постачальник не вправі збільшувати узгоджену ціну в
@@ -773,14 +586,18 @@ function Document() {
               </thead>
               <tbody>
                 {product.map((pro) => {
-                  <tr>
-                    <td>{product.id}</td>
-                    <td>{pro.name}</td>
-                    <td>шт</td>
-                    <td>{pro.number}</td>
-                    <td>{pro.cost}</td>
-                    <td>{pro.number * pro.cost}</td>
-                  </tr>;
+                  return (
+                    <>
+                      <tr>
+                        <td>{pro.id}</td>
+                        <td>{pro.name}</td>
+                        <td>шт</td>
+                        <td>{pro.number}</td>
+                        <td>{pro.cost}</td>
+                        <td>{pro.number * pro.cost}</td>
+                      </tr>
+                    </>
+                  );
                 })}
 
                 <tr>
@@ -790,30 +607,15 @@ function Document() {
                   >
                     Разом:
                   </td>
-                  <td>
-                    {" "}
-                    {product.reduce((accumulator, pro) => {
-                      return <>{accumulator + pro.cost * pro.number} </>;
-                    }, 0)}
-                  </td>
+                  <td>{totalProductSum}</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p className={css.paragraph}>
-            Загальна сума Договору складає:{" "}
-            {product.reduce((accumulator, pro) => {
-              return (
-                <>
-                  <span>
-                    {accumulator + pro.cost * pro.number} грн 00 коп, (
-                    {numberToUAText(accumulator.cost + pro.cost * pro.number)})
-                  </span>
-                </>
-              );
-            }, 0)}{" "}
-            без ПДВ.
+            Загальна сума Договору складає: {totalProductSum} грн 00 коп, (
+            {numberToUAText(totalProductSum)}) без ПДВ.
           </p>
 
           <div className={css.tableWrappers}>

@@ -1,14 +1,21 @@
 import css from "./App.module.css";
 import Document from "./document/Document.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { inpersonEl, customerEl, basisEl, termEl, placeEl, showModalEl, codeEl, showProviderEl, customerProviderEl, providerEl, productEl } from "./redux/selectors";
+import { inpersonEl, customerEl, basisEl, termEl, placeEl, showModalEl, codeEl, showProviderEl, customerProviderEl, providerEl, productEl, showDEl } from "./redux/selectors";
 import ModalProduct from "./modalProduct/ModalProduct";
 import ProviderProduct from "./provider/Provider";
 
 
-import { addInperson, Showing, ShowingP } from "./redux/actions";
+import { addInperson, Showing, ShowingP, ShowingD  } from "./redux/actions";
 
+const array = [
+  { cost: 34, num: 4 },
+  { cost: 334, num: 4 },
+];
 
+// const totalSum = array.reduce((acc, item) => acc + item.cost * item.num, 0);
+
+// console.log(totalSum);
 
 
 function App() {
@@ -29,6 +36,10 @@ const customerProvider = useSelector(customerProviderEl);
 console.log(customerProvider);
 const product = useSelector(productEl);
 console.log(product);
+const showD = useSelector(showDEl);
+console.log(showD);
+
+
 
 const showF = () => {
   dispatch(Showing(!showMod));
@@ -36,6 +47,9 @@ const showF = () => {
 
 const showP = () => {
   dispatch(ShowingP(!showProvider));
+};
+const showDF = () => {
+  dispatch(ShowingD(!showD));
 };
 
 const addInfo = (e) => {
@@ -60,8 +74,7 @@ const addInfo = (e) => {
 
 {showMod ? <ModalProduct/> : console.log("no show")}
 {showProvider ? <ProviderProduct/> : console.log("no show")}
-
-      {/* <form className={css.formSubmit} onSubmit={addInfo}>
+{!showD ? ( <form className={css.formSubmit} onSubmit={addInfo}>
         <h2 className={css.submitText}>Відправляй значення у Document</h2>
         <ul className={css.submitList}>
         <li>
@@ -134,8 +147,12 @@ const addInfo = (e) => {
         <button className={css.submitButton} type="submit">
           Відправити
         </button>
-      </form> */}
-      <Document></Document>
+        <button className={css.submitButton} type="button" onClick={showDF}>
+          Переглянути файл
+        </button>
+      </form>) :  <Document></Document>}
+     
+     
 
 
     </>
