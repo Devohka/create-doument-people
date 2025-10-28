@@ -1,5 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 
+import { addInperson } from "./actions";
 // localStorage.clear();
 
 // const state = {
@@ -17,22 +18,17 @@ import { createReducer } from "@reduxjs/toolkit";
 const state = {
   inperson: {
     job: "",
-    name: "",
+    name: "fg fg ",
   },
   customer: {
     name: "",
     job: "",
   },
   basis: "",
-  product: [
-    {
-      items: [],
-      number: 0,
-      cost: 0,
-    },
-  ],
+
   term: "",
   place: "",
+  code: "",
 };
 console.log(state.taskList);
 export const reduser = createReducer(state, (builder) => {
@@ -41,17 +37,18 @@ export const reduser = createReducer(state, (builder) => {
       // localStorage.setItem("taskList", JSON.stringify([...state.taskList, action.payload]));
       return {
         inperson: {
-          job: action.payload.inperson.job,
-          name: action.payload.inperson.name,
+          job: action.payload.inPerson.job,
+          name: action.payload.inPerson.name,
         },
         customer: {
           name: action.payload.customer.name,
           job: action.payload.customer.job,
         },
         basis: action.payload.basis,
-        product: state.product.product,
+        product: [...state.product],
         term: action.payload.term,
         place: action.payload.place,
+        code: action.payload.code,
       };
     })
 

@@ -1,0 +1,178 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  
+  .btn {
+    background: #0B3C49;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+  
+  .btn:hover {
+    background: #95B8D1;
+  }
+  
+  @media print {
+    .buttons {
+      display: none;
+    }
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: auto;
+    padding: 25mm;
+    padding-top: 0px;
+    
+    font-family: "Times New Roman", serif;
+    font-size: 12pt;
+    color: #000;
+    background: white;
+    box-sizing: border-box;
+  }
+  
+  .title {
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+  
+  .centrText {
+    
+   display: flex;
+justify-content: center;
+  }
+  
+
+  .infoText {
+    display: flex;
+  }
+
+  .subtitle {
+    border-bottom: 2px solid black;
+    font-weight: bold;
+    /* text-align: right; */
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+
+  .subtitle {
+    text-align: right;
+}
+.subtitlee {
+    border-bottom: 2px solid black;
+    font-weight: bold;
+    /* text-align: right; */
+    font-style: italic;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  .subtitleCenter {
+    margin-left: auto;
+    width: 150px;
+    /* font-weight: bold; */
+    /* margin: 15px 0; */
+  }
+
+  .text {
+    text-align: center;
+    font-size: 11pt;
+    margin-bottom: 10px;
+  }
+  
+  .sectionTitle {
+    text-align: center;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+  }
+  
+  .paragraph {
+    text-align: justify;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+
+  
+  .tableWrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .tableWrappers {
+    margin-top: 75px;
+    margin-bottom: 15px;
+  }
+
+  .table {
+    width: 100%;
+    /* display: flex; */
+    border-collapse: collapse;
+    font-size: 11pt;
+  }
+  
+  .table th,
+  .table td {
+    width: 50%;
+    border: 1px solid black;
+    padding: 6px;
+    vertical-align: top;
+    }
+  .signatures {
+    /* margin-top: 30px; */
+    /* text-align: center; */
+    line-height: 2;
+    font-weight: bold;
+  }
+
+  .signature {
+    margin-top: 25px;
+    display: flex;
+  }
+
+  .signatureText {
+    border-top: 2px solid black;
+  }
+
+  .signatureName {
+   margin-left: auto;
+  }
+
+  .footerInfo {
+    width: 250px;
+    margin-bottom: 25px;
+    margin-left: auto;
+  }
+
+  /* --- PRINT STYLES --- */
+  @media print {
+    body {
+      background: white;
+      margin: 0;
+    }
+  
+    .page {
+      page-break-after: always;
+      box-shadow: none;
+      border: none;
+    }
+  }

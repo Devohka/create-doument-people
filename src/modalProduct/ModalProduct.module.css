@@ -1,0 +1,66 @@
+.formProduct {
+  position: absolute;
+  width: 550px;
+  z-index: 3;
+  background-color: white;
+  border-radius: 15px;
+  border: 2px solid black;
+  padding-bottom: 15px;
+
+  justify-items: center;
+
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.formInput {
+  width: 500px;
+  height: 35px;
+
+  padding-left: 10px;
+  margin-left: 15px;
+  margin-top: 10px;
+
+  border-radius: 15px;
+}
+
+.formBtn {
+  /* margin-bottom: 15px; */
+  margin-top: 15px;
+  margin-left: 25px;
+  width: 500px;
+  height: 45px;
+
+  border-radius: 15px;
+  border: none;
+  font-size: 15px;
+  background-color: #0b3c49;
+  color: #fff;
+}
+
+.formInput:hover {
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.formBtn:hover {
+  background-color: #95b8d1;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+
+.formList {
+    margin-top: 25px;
+    margin-left: 25px;
+    gap: 10px;
+    width: 550px;
+    display: flex;
+    flex-wrap: wrap;
+    /* height: 350px; */
+}
+
+.formItem {
+    /* width: 100px; */
+    padding: 10px;
+    border: 2px solid black;
+}
