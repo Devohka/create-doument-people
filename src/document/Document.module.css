@@ -87,8 +87,17 @@ justify-content: center;
     margin-bottom: 10px;
     text-align: center;
   }
+
+  ul {
+    list-style: none;
+}
+
+  .subtitleCentr {
+    width: 200px;
+  }
+
   .subtitleCenter {
-    margin-left: auto;
+   margin-left: 250px;
     width: 150px;
     /* font-weight: bold; */
     /* margin: 15px 0; */
