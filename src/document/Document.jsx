@@ -281,11 +281,22 @@ function Document() {
       .${css.table} th,
       .${css.table} td {
         width: 50%;
-        border: 1px solid #000;
+
         padding: 6px;
         vertical-align: top;
       }
   
+      .${css.tablse} th,
+      .${css.tablse} td {
+        border-collapse: collapse;
+        font-size: 11pt;
+        border: 1px solid black;
+        padding: 6px;
+        vertical-align: top;
+
+      }
+  
+
       .${css.signatures} {
         line-height: 2;
         font-weight: bold;
@@ -808,7 +819,7 @@ function Document() {
           <h3 className={css.sectionTitle}>СПЕЦИФІКАЦІЯ</h3>
 
           <div className={css.tableWrapper}>
-            <table className={css.table}>
+            <table className={css.tablse}>
               <thead>
                 <tr>
                   <th>№</th>
