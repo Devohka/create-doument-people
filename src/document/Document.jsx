@@ -175,29 +175,6 @@ function Document() {
         align-items: center;
       }
   
-      .${css.buttons} {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin: 20px 0;
-      }
-  
-      .${css.btn} {
-        background: #0B3C49;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background 0.2s ease;
-      }
-  
-      /* :hover у Word не працює, можна не вказувати, але не шкодить */
-      .${css.btn}:hover {
-        background: #95B8D1;
-      }
-  
       .${css.page} {
         width: 210mm;
         min-height: 297mm;
@@ -219,12 +196,25 @@ function Document() {
       }
   
       .${css.centrText} {
-        display: flex;
-        justify-content: center;
+        font-weight: bold;
+        /* text-align: right; */
+        /* font-style: italic; */
+        font-size: 25pt;
+       
+       /* display: flex;
+    justify-content: center; */
       }
-  
+      
+      .${css.tableText} {
+        margin-left: auto;
+        margin-right: auto;
+      }
       .${css.infoText} {
         display: flex;
+      }
+
+      .${css.dataText} {
+        width: 135px;
       }
   
       .${css.subtitle} {
@@ -253,9 +243,9 @@ function Document() {
       }
   
       .${css.text} {
-        text-align: center;
         font-size: 11pt;
         margin-bottom: 10px;
+        text-align: center;
       }
   
       .${css.sectionTitle} {
@@ -368,13 +358,41 @@ function Document() {
       <div ref={contractRef}>
         {/* СТОРІНКА 1 */}
         <div className={css.page}>
-          <h1 className={css.title}>
+          <table className={css.tableText}>
+            <tbode>
+              <tr>
+                <td>
+                  <p className={css.centrText}> ДОГОВІР №</p>
+
+                  <p className={css.centrText}>ПРО ЗАКУПІВЛЮ ТОВАРУ</p>
+                  <br/>
+                </td>
+              </tr>
+            </tbode>
+          </table>
+
+          {/* <h1 className={css.title}>
             <span className={css.centrText}>ДОГОВІР №</span> ПРО ЗАКУПІВЛЮ
             ТОВАРУ
-          </h1>
+          </h1> */}
 
-
-          <div className={css.infoText}>
+          <table>
+            <tbode>
+              <tr>
+                <td>
+                  <p className={css.subtitlee}> с. Видричка .</p>
+                  <p className={css.text}>(місце укладення договору)</p>
+                </td>
+                <td className={css.dataText}></td>
+                <td className={css.dataText}></td>
+                <td className={css.dataText}>
+                  <p className={css.subtitle}>2025p.</p>
+                  <p className={css.text}>(дата)</p>
+                </td>
+              </tr>
+            </tbode>
+          </table>
+          {/* <div className={css.infoText}>
             <div className={css.subtitleCentr}>
               <p className={css.subtitlee}> с. Видричка .</p>
               <p className={css.text}>(місце укладення договору)</p>
@@ -383,7 +401,7 @@ function Document() {
               <p className={css.subtitle}>2025p.</p>
               <p className={css.text}>(дата)</p>
             </div>
-          </div>
+          </div> */}
 
           <p className={css.paragraph}>
             <span>
@@ -720,12 +738,20 @@ function Document() {
                     <br />
                     {inperson.job}
                     <br />
-                    <div className={css.signature}>
-                      <p className={css.signatureText}>(підпис)</p>
-                      <p className={css.signatureName}>
-                        {updateName(inperson.name)}
-                      </p>
-                    </div>
+                    <table className={css.tablee}>
+                      <tbode>
+                        <tr>
+                          <td>
+                            <p className={css.signatureText}>(підпис)</p>
+                          </td>
+                          <td>
+                            <p className={css.signatureName}>
+                              {updateName(inperson.name)}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbode>
+                    </table>
                     <br />
                     м.п.
                   </td>
@@ -748,12 +774,20 @@ function Document() {
                     <br />
                     {customer.job}
                     <br />
-                    <div className={css.signature}>
-                      <p className={css.signatureText}>(підпис)</p>
-                      <p className={css.signatureName}>
-                        {updateName(inperson.name)}
-                      </p>
-                    </div>
+                    <table className={css.tablee}>
+                      <tbode>
+                        <tr>
+                          <td>
+                            <p className={css.signatureText}>(підпис)</p>
+                          </td>
+                          <td>
+                            <p className={css.signatureName}>
+                              {updateName(customer.name)}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbode>
+                    </table>
                     <br />
                     м.п.
                   </td>
@@ -853,12 +887,20 @@ function Document() {
                     <br />
                     {inperson.job}
                     <br />
-                    <div className={css.signature}>
-                      <p className={css.signatureText}>(підпис)</p>
-                      <p className={css.signatureName}>
-                        {updateName(inperson.name)}
-                      </p>
-                    </div>
+                    <table className={css.tablee}>
+                      <tbode>
+                        <tr>
+                          <td>
+                            <p className={css.signatureText}>(підпис)</p>
+                          </td>
+                          <td>
+                            <p className={css.signatureName}>
+                              {updateName(inperson.name)}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbode>
+                    </table>
                     <br />
                     м.п.
                   </td>
@@ -881,12 +923,26 @@ function Document() {
                     <br />
                     {customer.job}
                     <br />
-                    <div className={css.signature}>
+                    <table className={css.tablee}>
+                      <tbode>
+                        <tr>
+                          <td>
+                            <p className={css.signatureText}>(підпис)</p>
+                          </td>
+                          <td>
+                            <p className={css.signatureName}>
+                              {updateName(customer.name)}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbode>
+                    </table>
+                    {/* <div className={css.signature}>
                       <p className={css.signatureText}>(підпис)</p>
                       <p className={css.signatureName}>
                         {updateName(inperson.name)}
                       </p>
-                    </div>
+                    </div> */}
                     <br />
                     м.п.
                   </td>

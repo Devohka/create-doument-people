@@ -57,11 +57,19 @@
   }
   
   .centrText {
-    
-   display: flex;
-justify-content: center;
+    font-weight: bold;
+    /* text-align: right; */
+    /* font-style: italic; */
+    font-size: 25pt;
+    align-items: center;
+   /* display: flex;
+justify-content: center; */
   }
   
+  .tableText {
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .infoText {
     display: flex;
@@ -79,6 +87,11 @@ justify-content: center;
   .subtitle {
     text-align: right;
 }
+
+.dataText {
+  width: 135px;
+}
+
 .subtitlee {
     border-bottom: 2px solid black;
     font-weight: bold;
@@ -104,9 +117,10 @@ justify-content: center;
   }
 
   .text {
-    text-align: center;
+
     font-size: 11pt;
     margin-bottom: 10px;
+    text-align: center;
   }
   
   .sectionTitle {
@@ -141,14 +155,19 @@ justify-content: center;
     border-collapse: collapse;
     font-size: 11pt;
   }
+
+
   
-  .table th,
-  .table td {
+  .table th:not(.tablee th, .tablee td),
+  .table td:not(.tablee th, .tablee td) {
+    /*  */
     width: 50%;
     border: 1px solid black;
     padding: 6px;
     vertical-align: top;
     }
+
+
   .signatures {
     /* margin-top: 30px; */
     /* text-align: center; */

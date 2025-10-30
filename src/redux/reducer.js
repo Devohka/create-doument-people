@@ -19,10 +19,10 @@ const state = {
   showD: false,
   inperson: {
     job: "",
-    name: "fg fg ",
+    name: "fg fg gf",
   },
   customer: {
-    name: "",
+    name: "gf gf gf",
     job: "",
   },
   basis: "",
