@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/create-doument-people/static/css/main.824beeeb.css",
-    "main.js": "/create-doument-people/static/js/main.72d6a831.js",
+    "main.css": "/create-doument-people/static/css/main.8f967793.css",
+    "main.js": "/create-doument-people/static/js/main.be4e3b04.js",
     "index.html": "/create-doument-people/index.html",
-    "main.824beeeb.css.map": "/create-doument-people/static/css/main.824beeeb.css.map",
-    "main.72d6a831.js.map": "/create-doument-people/static/js/main.72d6a831.js.map"
+    "main.8f967793.css.map": "/create-doument-people/static/css/main.8f967793.css.map",
+    "main.be4e3b04.js.map": "/create-doument-people/static/js/main.be4e3b04.js.map"
   },
   "entrypoints": [
-    "static/css/main.824beeeb.css",
-    "static/js/main.72d6a831.js"
+    "static/css/main.8f967793.css",
+    "static/js/main.be4e3b04.js"
   ]
 }
